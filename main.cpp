@@ -94,7 +94,11 @@ int main(){
     getch();
     delete derp;
     refresh();
-    system("cls");
+	#ifdef WIN32
+	    	system("cls");
+	#else
+		system("clear");
+	#endif
     test->restoreState();
     redrawwin(test->win());
     test->print('a',0,0);
