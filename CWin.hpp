@@ -75,9 +75,9 @@ class CWin{
         /*
             constants
         */
-        static int key_enter() const;
-        static int window_x() const;
-        static int window_y() const;
+        static int key_enter();
+        static int window_x();
+        static int window_y();
     private:
         void defarg(unsigned int& x, unsigned int& y);
 

@@ -4,10 +4,13 @@
 int CWin::colorInc = 1;
 
 #ifdef WIN32
-	int CWin::key_enter = 13;
+	int CWin::_key_enter = 13;
 #else
-	int CWin::key_enter = 10;
+	int CWin::_key_enter = 10;
 #endif
+
+int CWin::_wx = 0;
+int CWin::_wy = 0;
 
 CWin::CWin(unsigned int sx, unsigned int sy, unsigned int dx, unsigned int dy, bool scrolling):
 _cX(0),_cY(0),_mX(dx),_mY(dy), sX(sx), sY(sy), _lastCol(-1),_scrolling(scrolling), _win(NULL), dataStore(NULL){
@@ -203,15 +206,15 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
     return buffer;
 }
 
-int CWin::key_enter() const{
+int CWin::key_enter(){
     return _key_enter;
 }
 
-int CWin::window_x() const{
+int CWin::window_x(){
     return _wx;
 }
 
-int CWin::window_y() const{
+int CWin::window_y(){
     return _wy;
 }
 
