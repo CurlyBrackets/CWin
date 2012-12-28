@@ -1,7 +1,13 @@
-#include <Curly/CWin.hpp>
+#include "CWin.hpp"
 #include <iostream>
 
 int CWin::colorInc = 1;
+
+#ifdef WIN32
+	int CWin::key_enter = 13;
+#else
+	int CWin::key_enter = 10;
+#endif
 
 CWin::CWin(unsigned int sx, unsigned int sy, unsigned int dx, unsigned int dy, bool scrolling):
 _cX(0),_cY(0),_mX(dx),_mY(dy), sX(sx), sY(sy), _lastCol(-1),_scrolling(scrolling), _win(NULL), dataStore(NULL){
@@ -60,7 +66,7 @@ void CWin::clear(){
     this->refresh();
 }
 
-void CWin::border(){
+void CWin::test_border(){
     print('.', 0,0);
     print('.', xMax()-1,0);
     print('\'', 0,yMax()-1);
@@ -75,7 +81,7 @@ void CWin::border(){
     }
 }
 
-void CWin::hline(unsigned int width, unsigned int x, unsigned int y){
+void CWin::horiz_line(unsigned int width, unsigned int x, unsigned int y){
 
 }
 
@@ -142,7 +148,7 @@ void CWin::defarg(unsigned int& x, unsigned int& y){
         y = yPos();
 }
 
-int CWin::scroll(int n){
+int CWin::sscroll(int n){
     return wscrl(_win, n);
 }
 
@@ -191,7 +197,7 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
             move(y, sX+x+buffer.length());
 
         }
-    }while(ch != 13);
+    }while(ch != key_enter);
     return buffer;
 }
 

@@ -55,7 +55,7 @@ class CWin{
         unsigned int xPos() const;
         unsigned int yPos() const;
 
-        int scroll(int n);
+        int sscroll(int n);
         void saveState();
         void restoreState();
 

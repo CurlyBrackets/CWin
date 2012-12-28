@@ -1,4 +1,4 @@
-#include <Curly/CWin.hpp>
+#include "CWin.hpp"
 #include <iostream>
 #include <cstdlib>
 
