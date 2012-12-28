@@ -86,7 +86,7 @@ int main(){
     test->refresh();
     test->saveState();
     getch();
-    CWin* derp = new CWin(0,0,80,25);
+    CWin* derp = new CWin(0,0,CWin::window_x(),CWin::window_y());
     refresh();
     derp->setCol(first->colour());
     derp->clear();
@@ -116,7 +116,7 @@ int main(){
     delete win;
 
 	int maxy, maxx;
-	
+
 	getmaxyx(stdscr, maxy, maxx);
 
     CWin::end();

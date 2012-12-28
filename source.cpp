@@ -122,6 +122,8 @@ void CWin::start(){
     noecho();
     raw();
     keypad(stdscr, TRUE);
+
+    getmaxyx(stdscr, _wy, _wx);
 }
 
 void CWin::end(){
@@ -197,8 +199,20 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
             move(y, sX+x+buffer.length());
 
         }
-    }while(ch != key_enter);
+    }while(ch != key_enter());
     return buffer;
+}
+
+int CWin::key_enter() const{
+    return _key_enter;
+}
+
+int CWin::window_x() const{
+    return _wx;
+}
+
+int CWin::window_y() const{
+    return _wy;
 }
 
 CWinStorage::CWinStorage(CWin* window):

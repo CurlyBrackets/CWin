@@ -8,22 +8,33 @@
 #include <string>
 #include <vector>
 
-#define COLOUR_BLACK       0x0
-#define COLOUR_DARK_BLUE   0x1
-#define COLOUR_DARK_GREEN  0x2
-#define COLOUR_TURQUOISE   0x3
-#define COLOUR_DARK_RED    0x4
-#define COLOUR_PURPLE      0x5
-#define COLOUR_DARK_YELLOW 0x6
-#define COLOUR_LIGHT_GREY  0x7
-#define COLOUR_DARK_GREY   0x8
-#define COLOUR_BLUE        0x9
-#define COLOUR_GREEN       0xA
-#define COLOUR_CYAN        0xB
-#define COLOUR_RED         0xC
-#define COLOUR_MAGENTA     0xD
-#define COLOUR_YELLOW      0xE
-#define COLOUR_WHITE       0xF
+#ifdef WIN32
+    #define COLOUR_BLACK       0x0
+    #define COLOUR_DARK_BLUE   0x1
+    #define COLOUR_DARK_GREEN  0x2
+    #define COLOUR_TURQUOISE   0x3
+    #define COLOUR_DARK_RED    0x4
+    #define COLOUR_PURPLE      0x5
+    #define COLOUR_DARK_YELLOW 0x6
+    #define COLOUR_LIGHT_GREY  0x7
+    #define COLOUR_DARK_GREY   0x8
+    #define COLOUR_BLUE        0x9
+    #define COLOUR_GREEN       0xA
+    #define COLOUR_CYAN        0xB
+    #define COLOUR_RED         0xC
+    #define COLOUR_MAGENTA     0xD
+    #define COLOUR_YELLOW      0xE
+    #define COLOUR_WHITE       0xF
+#else
+    #define COLOUR_BLACK    0x0
+    #define COLOUR_BLUE     0x1
+    #define COLOUR_GREEN    0x2
+    #define COLOUR_CYAN     0x3
+    #define COLOUR_RED      0x4
+    #define COLOUR_MAGENTA  0x5
+    #define COLOUR_YELLOW   0x6
+    #define COLOUR_WHITE    0x7
+#endif
 
 
 class CWinStorage;
@@ -60,6 +71,13 @@ class CWin{
         void restoreState();
 
         std::string input(unsigned int x, unsigned int y, unsigned int dx);
+
+        /*
+            constants
+        */
+        static int key_enter() const;
+        static int window_x() const;
+        static int window_y() const;
     private:
         void defarg(unsigned int& x, unsigned int& y);
 
@@ -70,7 +88,7 @@ class CWin{
         WINDOW* _win;
         CWinStorage* dataStore;
 
-        static int key_enter;
+        static int _key_enter, _wx, _wy;
 };
 
 class CWinStorage{
