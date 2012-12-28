@@ -54,7 +54,7 @@ int main(){
     CWin::start();
     CWin* test = new CWin(1,1,10,10);
     refresh();
-    Node* first = new Node(test->createColor(0xF, 0x0)), *node = first;
+    Node* first = new Node(test->createColor(0x0, 0x7)), *node = first;
     first->first(true);
     first->push(new Node(test->createColor(0xE, 0x0)));
     first->push(new Node(test->createColor(0xD, 0x0)));
@@ -115,6 +115,13 @@ int main(){
 
     delete win;
 
+	int maxy, maxx;
+	
+	getmaxyx(stdscr, maxy, maxx);
+
     CWin::end();
+
+	std::cout << maxy << "\t" << maxx << std::endl;
+
     return 0;
 }
