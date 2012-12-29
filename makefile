@@ -1,7 +1,16 @@
-all:
-	g++ main.cpp source.cpp -o debug -lncurses
-win:
-	g++ main.cpp source.cpp -o debug -lpdcurses
+FLAGS = -Wall -std=c++0x
+ifneq ($(shell uname), Linux)
+	LIBS = -lpdcurses
+	DEFS = -DWIN32
+else
+	LIBS = -lncurses
+endif
 
+debug:
+	g++ $(DEFS) $(FLAGS) main.cpp Cwin.cpp -o debug $(LIBS)
+
+lib:
+	g++ $(DEFS) $(FLAGS) -c CWin.cpp
+	
 clean:
 	rm -rf *.o
