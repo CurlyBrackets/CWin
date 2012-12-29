@@ -5,8 +5,12 @@ int CWin::colorInc = 1;
 
 #ifdef WIN32
 	int CWin::_key_enter = 13;
+	int CWin::_kbspc = 8;
+	int CWin::_kend = 358;
 #else
 	int CWin::_key_enter = 10;
+	int CWin::_kbspc = 127;
+	int CWin::_kend = 360;
 #endif
 
 int CWin::_wx = 0;
@@ -180,27 +184,103 @@ void CWin::restoreState(){
 
 std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
     std::string buffer;
+    unsigned int cpos = 0, xShift = 0;
     int ch;
     mv(x,y);
     do{
         ch = getch();
-        if(ch > 0xF && ch < 0x7F){
-            //check for dx
-            print(ch);
+        if(ch > 0x1F && ch < 0x7F){
+            buffer.insert(cpos+xShift, 1, ch);
+            cpos++;
+            if(cpos > dx){
+            	xShift++;
+            	cpos--;
+            }
+			mv(x,y);
+            for(unsigned int i=0;i<dx;i++)
+                print(' ');
+            print(buffer.substr(xShift, dx), A_NORMAL, x, y);
             this->refresh();
-            buffer += ch;
-            move(y, sX+x+buffer.length());
+
+            move(y, sX+x+cpos);
         }
-        else if(ch == 8){
-            //clear and reprint buffer
-            buffer = buffer.substr(0, buffer.length()-1);
+        else if(ch == key_backspace()){
+            if(cpos > 0 || xShift > 0){
+            	if(cpos != 0)
+					cpos--;
+				else
+					xShift--;
+				buffer = buffer.erase(cpos+xShift, 1);
+				mv(x,y);
+				for(unsigned int i=0;i<dx;i++)
+					print(' ');
+				print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+				this->refresh();
+				move(y, sX+x+cpos);
+            }
+        }
+        else if(ch == 260){//left
+			if(cpos > 0){
+				cpos--;
+				move(y, sX+x+cpos);
+			}
+			else if(xShift){
+				xShift--;
+				mv(x,y);
+				for(unsigned int i=0;i<dx;i++)
+					print(' ');
+				print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+				this->refresh();
+			}
+
+        }
+        else if(ch == 261){//right
+        	if(cpos+xShift < buffer.length()){
+        		if(cpos < dx){
+        			cpos++;
+        			move(y, sX+x+cpos);
+        		}
+        		else{
+        			xShift++;
+					mv(x,y);
+					for(unsigned int i=0;i<dx;i++)
+						print(' ');
+					print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+					this->refresh();
+        		}
+        	}
+        }
+        else if(ch == 330){//del
+			buffer = buffer.erase(cpos, 1);
             mv(x,y);
             for(unsigned int i=0;i<dx;i++)
                 print(' ');
-            print(buffer, A_NORMAL, x, y);
+            print(buffer.substr(xShift, dx), A_NORMAL, x, y);
             this->refresh();
-            move(y, sX+x+buffer.length());
-
+        }
+        else if(ch == 262){//home
+			cpos = 0;
+			xShift = 0;
+			mv(x,y);
+            for(unsigned int i=0;i<dx;i++)
+                print(' ');
+            print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+            this->refresh();
+			move(y, sX+x+cpos);
+        }
+        else if(ch == key_end()){
+        	if(buffer.length() < dx)
+				cpos = buffer.length();
+			else{
+				cpos = dx;
+				xShift = buffer.length()-dx;
+				mv(x,y);
+				for(unsigned int i=0;i<dx;i++)
+					print(' ');
+				print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+				this->refresh();
+			}
+			move(y, sX+x+cpos);
         }
     }while(ch != key_enter());
     return buffer;
@@ -216,6 +296,14 @@ int CWin::window_x(){
 
 int CWin::window_y(){
     return _wy;
+}
+
+int CWin::key_backspace(){
+	return _kbspc;
+}
+
+int CWin::key_end(){
+	return _kend;
 }
 
 CWinStorage::CWinStorage(CWin* window):

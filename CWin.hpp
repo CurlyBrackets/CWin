@@ -76,6 +76,8 @@ class CWin{
             constants
         */
         static int key_enter();
+        static int key_backspace();
+        static int key_end();
         static int window_x();
         static int window_y();
     private:
@@ -88,7 +90,7 @@ class CWin{
         WINDOW* _win;
         CWinStorage* dataStore;
 
-        static int _key_enter, _wx, _wy;
+        static int _key_enter, _wx, _wy, _kbspc, _kend;
 };
 
 class CWinStorage{

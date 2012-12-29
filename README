@@ -2,3 +2,5 @@ CWin
 ====
 A Class based wrapper for the curses libararies on thier respective platforms. PDCurses for Windows and NCurses for UNix based 
 systems. Very much an ongoing development so please report any bugs or suggested behavoirs to me.
+
+Input now works!
