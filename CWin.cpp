@@ -182,12 +182,24 @@ void CWin::restoreState(){
     }
 }
 
-std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
-    std::string buffer;
+std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx, std::string def){
+    std::string buffer = def;
     unsigned int cpos = 0, xShift = 0;
+    if(!def.empty()){
+    	if(def.length() < dx)
+    		cpos = def.length();
+		else{
+			xShift = def.length()-dx;
+			cpos = dx;
+		}
+    }
     int ch;
+	print(buffer.substr(xShift, dx), x, y);
+	this->refresh();
+	move(sY+y, sX+x+cpos);
     mv(x,y);
-    do{
+
+	do{
         ch = getch();
         if(ch > 0x1F && ch < 0x7F){
             buffer.insert(cpos+xShift, 1, ch);

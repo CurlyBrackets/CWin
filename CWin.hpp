@@ -70,7 +70,7 @@ class CWin{
         void saveState();
         void restoreState();
 
-        std::string input(unsigned int x, unsigned int y, unsigned int dx);
+        std::string input(unsigned int x, unsigned int y, unsigned int dx, std::string def="");
 
         /*
             constants
