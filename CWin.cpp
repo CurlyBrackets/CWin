@@ -49,7 +49,7 @@ void CWin::print(int ch, unsigned int x, unsigned int y){
     }
 }
 
-void CWin::print(std::string in, int attr, unsigned int x, unsigned int y){
+void CWin::print(std::string in, unsigned int x, unsigned int y, int attr){
     defarg(x,y);
     mv(x,y);
     attrOn(attr);

@@ -46,7 +46,7 @@ class CWin{
 
         void mv(unsigned int x, unsigned int y);
         void print(int ch, unsigned int x = -1, unsigned int y = -1);
-        void print(std::string in, int attr = A_NORMAL, unsigned int x = -1, unsigned int y = -1);
+        void print(std::string in, unsigned int x = -1, unsigned int y = -1, int attr = A_NORMAL);
         void refresh();
         void clear();
         void test_border();
