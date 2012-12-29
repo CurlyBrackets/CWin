@@ -199,10 +199,10 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
 			mv(x,y);
             for(unsigned int i=0;i<dx;i++)
                 print(' ');
-            print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+            print(buffer.substr(xShift, dx), x, y);
             this->refresh();
 
-            move(y, sX+x+cpos);
+            move(sY+y, sX+x+cpos);
         }
         else if(ch == key_backspace()){
             if(cpos > 0 || xShift > 0){
@@ -214,9 +214,9 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
 				mv(x,y);
 				for(unsigned int i=0;i<dx;i++)
 					print(' ');
-				print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+				print(buffer.substr(xShift, dx),x, y);
 				this->refresh();
-				move(y, sX+x+cpos);
+				move(sY+y, sX+x+cpos);
             }
         }
         else if(ch == 260){//left
@@ -229,7 +229,7 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
 				mv(x,y);
 				for(unsigned int i=0;i<dx;i++)
 					print(' ');
-				print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+				print(buffer.substr(xShift, dx), x, y);
 				this->refresh();
 			}
 
@@ -238,14 +238,14 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
         	if(cpos+xShift < buffer.length()){
         		if(cpos < dx){
         			cpos++;
-        			move(y, sX+x+cpos);
+        			move(sY+y, sX+x+cpos);
         		}
         		else{
         			xShift++;
 					mv(x,y);
 					for(unsigned int i=0;i<dx;i++)
 						print(' ');
-					print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+					print(buffer.substr(xShift, dx), x, y);
 					this->refresh();
         		}
         	}
@@ -255,7 +255,7 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
             mv(x,y);
             for(unsigned int i=0;i<dx;i++)
                 print(' ');
-            print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+            print(buffer.substr(xShift, dx), x, y);
             this->refresh();
         }
         else if(ch == 262){//home
@@ -264,9 +264,9 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
 			mv(x,y);
             for(unsigned int i=0;i<dx;i++)
                 print(' ');
-            print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+            print(buffer.substr(xShift, dx), x, y);
             this->refresh();
-			move(y, sX+x+cpos);
+			move(sY+y, sX+x+cpos);
         }
         else if(ch == key_end()){
         	if(buffer.length() < dx)
@@ -277,10 +277,10 @@ std::string CWin::input(unsigned int x, unsigned int y,unsigned int dx){
 				mv(x,y);
 				for(unsigned int i=0;i<dx;i++)
 					print(' ');
-				print(buffer.substr(xShift, dx), A_NORMAL, x, y);
+				print(buffer.substr(xShift, dx), x, y);
 				this->refresh();
 			}
-			move(y, sX+x+cpos);
+			move(sY+y, sX+x+cpos);
         }
     }while(ch != key_enter());
     return buffer;
