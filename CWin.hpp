@@ -1,6 +1,6 @@
 #ifndef __CWIN_H__
 #define __CWIN_H__
-#ifdef WIN32
+#ifdef USE_PDCURSES
     #include <PDCurses/curses.h>
 #else
     #include <ncurses.h>
@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#ifdef WIN32
+#ifdef USE_PDCURSES
     #define COLOUR_BLACK       0x0
     #define COLOUR_DARK_BLUE   0x1
     #define COLOUR_DARK_GREEN  0x2
